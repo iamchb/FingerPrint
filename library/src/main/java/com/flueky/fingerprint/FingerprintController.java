@@ -1,17 +1,12 @@
 package com.flueky.fingerprint;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.CancellationSignal;
-import android.support.annotation.RequiresApi;
 
 import com.flueky.framework.android.util.ToastTool;
-import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.InvocationTargetException;
@@ -24,13 +19,13 @@ import java.util.List;
  * Created by flueky on 2017/12/8.
  */
 
-public class FingerPrintController {
+public class FingerprintController {
     private FingerprintManager fpManager;
     private Activity activity;
     private FingerprintManager.CryptoObject cryptoObject;
     private CancellationSignal cancellationSignal;
 
-    public FingerPrintController(Activity activity) {
+    public FingerprintController(Activity activity) {
         this.activity = activity;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {//默认6.0以下不支持指纹。包括厂商定制的5.x系统
             try {
@@ -98,7 +93,7 @@ public class FingerPrintController {
             @Override
             public void onAuthenticationHelp(int helpCode, CharSequence helpString) {
                 super.onAuthenticationHelp(helpCode, helpString);
-                ToastTool.showShort(FingerPrintController.this.activity, helpString.toString());
+                ToastTool.showShort(FingerprintController.this.activity, helpString.toString());
             }
 
             @Override

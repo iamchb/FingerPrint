@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
-    private FingerPrintController fingerPrintController;
+    private FingerprintController fingerPrintController;
     private ListView lvFingerprint;
     private ArrayAdapter<Fingerprint> fingerprintAdapter;
     private SharedPreferences sharedPreferences;
@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        fingerPrintController = new FingerPrintController(this);
+        fingerPrintController = new FingerprintController(this);
         if (fingerPrintController.isSupportFingerprint()) {
             fingerprintAdapter = new ArrayAdapter<Fingerprint>(this, R.layout.activity_main_list_item, R.id.activity_main_list_item_tv_content);
             lvFingerprint.setAdapter(fingerprintAdapter);
