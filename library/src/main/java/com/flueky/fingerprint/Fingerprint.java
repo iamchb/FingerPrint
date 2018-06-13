@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 /**
  * 指纹信息类，系统的被隐藏
  * Created by flueky on 2017/12/12.
+ * @deprecated 不支持android 9.0 系统
  */
 
 public class Fingerprint {

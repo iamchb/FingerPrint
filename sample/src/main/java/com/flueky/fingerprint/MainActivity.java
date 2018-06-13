@@ -110,6 +110,7 @@ public class MainActivity extends BaseActivity {
             public void onAuthenticationSucceeded() {
                 ToastTool.showShort(MainActivity.this, "校验成功");
                 alertDialog.dismiss();
+                fingerPrintController.resolveChange();
             }
 
             @Override
@@ -126,26 +127,11 @@ public class MainActivity extends BaseActivity {
      * @param v
      */
     public void judgeChange(View v) {
-        if (!fingerPrintController.hasEnrolledFingerprints()) {
-            new AlertDialog.Builder(this)
-                    .setTitle("提示").setMessage("您的设备未录入指纹")
-                    .setNegativeButton("知道了", null)
-                    .create().show();
-            return;
+        if (fingerPrintController.hasChanged()) {
+            ToastTool.showShort(this, "指纹信息改变");
+        }else{
+            ToastTool.showShort(this, "指纹信息没变");
         }
 
-        String oldFingerMd5Data = sharedPreferences.getString("finger_data", "");
-        List<Fingerprint> fingerprints = fingerPrintController.getEnrolledFingerprints();
-        String newFingerMd5Data = genFingerprintSignature(fingerprints);
-        if (newFingerMd5Data.equals(oldFingerMd5Data))//包括重命名指纹，都算指纹变更
-            ToastTool.showShort(this, "指纹信息没变");
-        else {
-            fingerprintAdapter.clear();
-            fingerprintAdapter.addAll(fingerprints);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("finger_data", newFingerMd5Data);
-            editor.commit();
-            ToastTool.showShort(this, "指纹信息改变");
-        }
     }
 }
